@@ -13,11 +13,10 @@ num_epochs = 1
 test_split = 0.2
 train_split = 1.0 - test_split
 learning_rate = 1e-2
-crop_size = 3456
 
 def main():
     transform = transforms.Compose([
-        transforms.CenterCrop(crop_size),
+        transforms.CenterCrop(3456),
         transforms.Resize((img_size, img_size)),
         transforms.ToTensor(),
         transforms.Normalize((0.7019, 0.4425, 0.1954), (0.1720, 0.1403, 0.1065))
