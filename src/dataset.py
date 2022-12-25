@@ -74,7 +74,8 @@ def export_images(img_size):
         save_image(img, img_path)
 
         if idx % 100 == 0:
-            print(f'images saved: [{idx}/{len(img_data)}]')
+            print(f'Images saved: [{idx}/{len(img_data)}]')
+    print(f'Images saved: [{len(img_data)}/{len(img_data)}]')
 
 if __name__ == '__main__':
     img_size = 32
