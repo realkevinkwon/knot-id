@@ -4,29 +4,31 @@ from torchvision.utils import save_image
 from torchvision.transforms import transforms
 from PIL import Image
 
-root = './data'
+data_root = './data'
+data_dir = '10Knots'
+data_path = os.path.join(data_root, data_dir)
 
 class Knots(VisionDataset):
 
-    def __init__(self, transform=None):
+    def __init__(self, img_size=32, transform=None):
         self.transform = transform
         self.filepaths = []
         self.targets = []
         self.classes = {}
 
-        super().__init__(root, transforms=None, transform=transform)
+        super().__init__(data_root, transforms=None, transform=transform)
 
         class_idx = 0
-        for filename in os.listdir(os.path.join(root, '10Knots')):
+        for filename in os.listdir(data_path):
             if filename != '.DS_Store':
                 self.classes[class_idx] = filename
                 class_idx += 1
         
         for idx, label in self.classes.items():
-            for path, _, filenames in os.walk(os.path.join(root, '10Knots', label)):
+            for class_path, _, filenames in os.walk(os.path.join(data_path, label)):
                 for filename in filenames:
                     if filename != '.DS_Store':
-                        self.filepaths.append(os.path.join(path, filename))
+                        self.filepaths.append(os.path.join(class_path, filename))
                         self.targets.append(idx)
 
     def __len__(self):
