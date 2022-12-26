@@ -45,7 +45,7 @@ def train(model, train_loader, loss_fn, optimizer, epoch):
         loss.backward()
         optimizer.step()
 
-        if batch_idx % 100 == 0:
+        if batch_idx % 5 == 0:
             print(
                 f'Epoch {epoch}: [{batch_idx*len(images)}/{len(train_loader.dataset)}]'
                 f'Loss: {loss.item():.4f}'
@@ -59,16 +59,16 @@ def test(model, test_loader, loss_fn, epoch):
     with torch.no_grad():
         for images, targets in test_loader:
             output = model(images)
-            test_loss += loss_fn(output, targets, reduction='sum').item()
+            test_loss += loss_fn(output, targets).item()
             pred = output.data.max(1, keepdim=True)[1]
             correct += pred.eq(targets.data.view_as(pred)).sum()
-            test_loss /= len(test_loader.dataset)
-            print(
-                f'Test result on epoch {epoch}: '
-                f'Avg loss is {test_loss:.4f}, '
-                f'Accuracy: {(100.0 * correct / len(test_loader.dataset)):.2f}%'
-            )
 
+        test_loss /= len(test_loader.dataset)
+        print(
+            f'Test result on epoch {epoch}: '
+            f'Avg loss is {test_loss:.4f}, '
+            f'Accuracy: {(100.0 * correct / len(test_loader.dataset)):.2f}%'
+        )
 
 if __name__ == '__main__':
     main()
