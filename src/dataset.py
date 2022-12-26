@@ -2,7 +2,6 @@ import os
 from torchvision.datasets.vision import VisionDataset
 from torchvision.utils import save_image
 from torchvision.transforms import transforms
-from torch.utils.data import DataLoader
 from PIL import Image
 
 root = './data'
