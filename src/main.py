@@ -16,8 +16,6 @@ learning_rate = 1e-2
 
 def main():
     transform = transforms.Compose([
-        transforms.CenterCrop(3456),
-        transforms.Resize((img_size, img_size)),
         transforms.ToTensor(),
         transforms.Normalize((0.7019, 0.4425, 0.1954), (0.1720, 0.1403, 0.1065))
     ])
