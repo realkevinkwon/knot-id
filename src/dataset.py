@@ -5,12 +5,12 @@ from torchvision.transforms import transforms
 from PIL import Image
 
 data_root = './data'
-data_dir = '10Knots'
+data_dir = '10Knots_32'
 data_path = os.path.join(data_root, data_dir)
 
 class Knots(VisionDataset):
 
-    def __init__(self, img_size=32, transform=None):
+    def __init__(self, transform=None):
         self.transform = transform
         self.filepaths = []
         self.targets = []
