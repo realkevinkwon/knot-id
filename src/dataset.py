@@ -7,29 +7,36 @@ from PIL import Image
 data_root = './data'
 data_dir = '10Knots_128'
 data_path = os.path.join(data_root, data_dir)
+classes = [
+    'Alpine Butterfly Knot',
+    'Bowline Knot',
+    'Clove Hitch',
+    'Figure-8 Knot',
+    'Figure-8 Loop',
+    'Fisherman\'s Knot',
+    'Flemish Bend',
+    'Overhand Knot',
+    'Reef Knot',
+    'Slip Knot'
+]
 
 class Knots(VisionDataset):
 
-    def __init__(self, transform=None):
+    def __init__(self, split, transform=None):
         self.transform = transform
         self.filepaths = []
         self.targets = []
         self.classes = {}
+        self.split = split
 
         super().__init__(data_root, transforms=None, transform=transform)
-
-        class_idx = 0
-        for filename in os.listdir(data_path):
-            if filename != '.DS_Store':
-                self.classes[class_idx] = filename
-                class_idx += 1
         
-        for idx, label in self.classes.items():
-            for class_path, _, filenames in os.walk(os.path.join(data_path, label)):
-                for filename in filenames:
-                    if filename != '.DS_Store':
-                        self.filepaths.append(os.path.join(class_path, filename))
-                        self.targets.append(idx)
+        for idx, class_name in enumerate(classes):
+            class_path = os.path.join(data_path, self.split, class_name)
+            for file in os.listdir(class_path):
+                if file != '.DS_Store':
+                    self.filepaths.append(os.path.join(class_path, file))
+                    self.targets.append(idx)
 
     def __len__(self):
         return len(self.filepaths)
@@ -42,6 +49,3 @@ class Knots(VisionDataset):
             img = self.transform(img)
 
         return img, target
-
-    def get_class(self, target):
-        return self.classes[target]
