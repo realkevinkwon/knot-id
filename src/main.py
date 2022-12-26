@@ -7,7 +7,7 @@ import torch.nn as nn
 import torch.optim as optim
 
 batch_size = 64
-img_size = 32
+img_size = 512
 num_classes = 10
 num_epochs = 1
 test_split = 0.2
