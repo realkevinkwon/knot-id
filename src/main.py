@@ -9,7 +9,7 @@ import torch.optim as optim
 batch_size = 64
 img_size = 128
 num_classes = 10
-num_epochs = 1
+num_epochs = 5
 test_split = 0.2
 train_split = 1.0 - test_split
 learning_rate = 1e-2
