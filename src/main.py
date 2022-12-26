@@ -2,6 +2,7 @@ from model import KnotClassifier
 from dataset import Knots
 from torchvision import transforms
 from torch.utils.data import random_split, DataLoader
+import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -10,9 +11,19 @@ batch_size = 64
 img_size = 128
 num_classes = 10
 num_epochs = 5
-test_split = 0.2
-train_split = 1.0 - test_split
 learning_rate = 1e-2
+classes = [
+    'Alpine Butterfly Knot',
+    'Bowline Knot',
+    'Clove Hitch',
+    'Figure-8 Knot',
+    'Figure-8 Loop',
+    'Fisherman\'s Knot',
+    'Flemish Bend',
+    'Overhand Knot',
+    'Reef Knot',
+    'Slip Knot'
+]
 
 def main():
     transform = transforms.Compose([
@@ -20,7 +31,8 @@ def main():
         transforms.Normalize((0.7019, 0.4425, 0.1954), (0.1720, 0.1403, 0.1065))
     ])
 
-    train_data, test_data = random_split(Knots(transform=transform), [train_split, test_split])
+    train_data = Knots(split='train', transform=transform)
+    test_data = Knots(split='test', transform=transform)
     train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
 
@@ -67,6 +79,6 @@ def test(model, test_loader, loss_fn, epoch):
             f'Avg loss is {test_loss:.4f}, '
             f'Accuracy: {(100.0 * correct / len(test_loader.dataset)):.2f}%'
         )
-
+    
 if __name__ == '__main__':
     main()
