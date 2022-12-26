@@ -5,7 +5,7 @@ from torchvision.transforms import transforms
 from PIL import Image
 
 data_root = './data'
-data_dir = '10Knots_512'
+data_dir = '10Knots_128'
 data_path = os.path.join(data_root, data_dir)
 
 class Knots(VisionDataset):
