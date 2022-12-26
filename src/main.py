@@ -9,7 +9,6 @@ import torch.optim as optim
 
 batch_size = 64
 img_size = 128
-num_classes = 10
 num_epochs = 5
 learning_rate = 1e-2
 classes = [
@@ -24,6 +23,7 @@ classes = [
     'Reef Knot',
     'Slip Knot'
 ]
+num_classes = len(classes)
 
 def main():
     transform = transforms.Compose([
@@ -55,7 +55,7 @@ def train(model, train_loader, loss_fn, optimizer, epoch):
         loss.backward()
         optimizer.step()
 
-        if batch_idx % 5 == 0:
+        if batch_idx % 4 == 0:
             print(
                 f'Epoch {epoch}: [{batch_idx*len(images)}/{len(train_loader.dataset)}]'
                 f'Loss: {loss.item():.4f}'
