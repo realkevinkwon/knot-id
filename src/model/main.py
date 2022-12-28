@@ -1,5 +1,5 @@
-from model import KnotClassifier
-from dataset import Knots
+from model.model import KnotClassifier
+from data.dataset import Knots
 from torchvision import transforms
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
