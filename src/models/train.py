@@ -1,4 +1,4 @@
-from model.model import KnotClassifier
+from models.model import KnotClassifier
 from data.dataset import Knots
 from torchvision import transforms
 from torch.utils.data import DataLoader
