@@ -1,16 +1,17 @@
-from model import KnotClassifier
+from model import KnotClassifier, KnotClassifierA
 from dataset import Knots
 from torchvision import transforms
-from torch.utils.data import random_split, DataLoader
+from torch.utils.data import DataLoader
+import model
 import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import torch.optim as optim
 
-batch_size = 64
+batch_size = 1
 img_size = 128
 num_epochs = 5
-learning_rate = 1e-2
+learning_rate = 1e-4
 classes = [
     'Alpine Butterfly Knot',
     'Bowline Knot',
@@ -33,6 +34,7 @@ def main():
 
     train_data = Knots(split='train', transform=transform)
     test_data = Knots(split='test', transform=transform)
+
     train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
 
@@ -55,7 +57,7 @@ def train(model, train_loader, loss_fn, optimizer, epoch):
         loss.backward()
         optimizer.step()
 
-        if batch_idx % 4 == 0:
+        if batch_idx % 100 == 0:
             print(
                 f'Epoch {epoch}: [{batch_idx*len(images)}/{len(train_loader.dataset)}]'
                 f'Loss: {loss.item():.4f}'
