@@ -1,5 +1,5 @@
 from models.model import KnotClassifier
-from data.dataset import Knots
+from data.dataset import Knots, CLASSES
 from torchvision import transforms
 from torch.utils.data import DataLoader
 import torch
@@ -12,19 +12,6 @@ batch_size = 1                      # Batch size
 img_size = 128                      # Size of the images in the dataset
 num_epochs = 5                      # Number of iterations for training
 learning_rate = 1e-4                # Learning rate
-classes = [                         # List of classes as strings
-	'Alpine Butterfly Knot',
-	'Bowline Knot',
-	'Clove Hitch',
-	'Figure-8 Knot',
-	'Figure-8 Loop',
-	'Fisherman\'s Knot',
-	'Flemish Bend',
-	'Overhand Knot',
-	'Reef Knot',
-	'Slip Knot'
-]
-num_classes = len(classes)          # Number of classes in the datsets
 
 
 def main():

@@ -4,10 +4,10 @@ from PIL import Image
 
 
 # Constants
-data_root = './data'                            # Root directory for datsets
-data_dir = '10Knots_128'                        # Specific datset
-data_path = os.path.join(data_root, data_dir)
-classes = [                                     # List of classes as strings
+DATA_ROOT = './data'                            # Root directory for datsets
+DATA_DIR = '10Knots_128'                        # Specific datset
+DATA_PATH = os.path.join(DATA_ROOT, DATA_DIR)
+CLASSES = [                                     # List of classes as strings
 	'Alpine Butterfly Knot',
 	'Bowline Knot',
 	'Clove Hitch',
@@ -29,13 +29,12 @@ class Knots(VisionDataset):
 		self.transform = transform
 		self.filepaths = []
 		self.targets = []
-		self.classes = {}
 		self.split = split
 
-		super().__init__(data_root, transforms=None, transform=transform)
+		super().__init__(DATA_ROOT, transforms=None, transform=transform)
 		
-		for idx, class_name in enumerate(classes):
-			class_path = os.path.join(data_path, self.split, class_name)
+		for idx, class_name in enumerate(CLASSES):
+			class_path = os.path.join(DATA_PATH, self.split, class_name)
 			for file in os.listdir(class_path):
 				if file != '.DS_Store':
 					self.filepaths.append(os.path.join(class_path, file))
