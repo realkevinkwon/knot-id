@@ -4,10 +4,12 @@ from torchvision.utils import save_image
 from torchvision.transforms import transforms
 from PIL import Image
 
-data_root = './data'
-data_dir = '10Knots_128'
+
+# Constants
+data_root = './data'                            # Root directory for datsets
+data_dir = '10Knots_128'                        # Specific datset
 data_path = os.path.join(data_root, data_dir)
-classes = [
+classes = [                                     # List of classes as strings
     'Alpine Butterfly Knot',
     'Bowline Knot',
     'Clove Hitch',
@@ -20,8 +22,11 @@ classes = [
     'Slip Knot'
 ]
 
+
+# Dataset used for knot classification
 class Knots(VisionDataset):
 
+    # Initialize the Knots dataset
     def __init__(self, split, transform=None):
         self.transform = transform
         self.filepaths = []
@@ -38,9 +43,13 @@ class Knots(VisionDataset):
                     self.filepaths.append(os.path.join(class_path, file))
                     self.targets.append(idx)
 
+
+    # Return the number of images in the dataset
     def __len__(self):
         return len(self.filepaths)
     
+
+    # Return image and target (label) of the 'idx'th image
     def __getitem__(self, idx):
         img = Image.open(self.filepaths[idx])
         target = self.targets[idx]
