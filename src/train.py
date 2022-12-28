@@ -1,5 +1,9 @@
-from models.model import KnotClassifier
-from data.dataset import Knots
+import sys
+sys.path.append('../')			# Add modules to sys.path list
+
+
+from model import KnotClassifier
+from dataset import Knots
 from torchvision import transforms
 from torch.utils.data import DataLoader
 import torch
