@@ -43,10 +43,12 @@ def main():
 	for epoch in epochs:
 		train(model, train_loader, loss_fn, optimizer, epoch)
 
+		print('Testing model on train dataset')
 		loss, accuracy = test(model, train_loader, loss_fn, epoch)
 		train_losses.append(loss)
 		train_accuracies.append(accuracy)
 
+		print('Testing model on test dataset')
 		loss, accuracy = test(model, test_loader, loss_fn, epoch)
 		test_losses.append(loss)
 		test_accuracies.append(accuracy)
