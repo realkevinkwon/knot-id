@@ -1,4 +1,4 @@
-from model import KnotClassifier
+from model import KnotClassifier, MODEL_DIR
 from dataset import Knots
 from visualize import visualize_plot
 from torchvision import transforms
@@ -13,6 +13,7 @@ batch_size = 1                      # Batch size
 img_size = 128                      # Size of the images in the dataset
 num_epochs = 5                      # Number of iterations for training
 learning_rate = 1e-4                # Learning rate
+model_dir = './models'				# Location of serialized models
 
 
 def main():
@@ -54,6 +55,8 @@ def main():
 		test_accuracies.append(accuracy)
 
 	visualize_plot(train_losses, test_losses, train_accuracies, test_accuracies, epochs)
+	model_path = f'{model_dir}/knot-id_{img_size}-{batch_size}-{num_epochs}-{learning_rate}.pt'
+	torch.save(model.state_dict(), model_path)
 
 
 # Function to train the model
