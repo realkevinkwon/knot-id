@@ -4,7 +4,10 @@ venv:
 requirements: venv requirements.txt
 	./venv/bin/pip install -r requirements.txt
 
-run: venv requirements
-	./venv/bin/python3 src/models/train.py
+train: venv requirements
+	./venv/bin/python3 src/train.py
+
+process: venv requirements
+	./venv/bin/python3 src/process.py
 	
-.PHONY: requirements run
+.PHONY: requirements train process
