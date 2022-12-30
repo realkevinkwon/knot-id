@@ -1,4 +1,4 @@
-from model import KnotClassifier, MODEL_DIR
+from model import KnotClassifier
 from dataset import Knots
 from visualize import visualize_plot
 from torchvision import transforms
