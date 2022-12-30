@@ -11,7 +11,7 @@ import torch.optim as optim
 # Constants
 batch_size = 1                      # Batch size
 img_size = 128                      # Size of the images in the dataset
-num_epochs = 5                      # Number of iterations for training
+num_epochs = 20                     # Number of iterations for training
 learning_rate = 1e-4                # Learning rate
 model_dir = './models'				# Location of serialized models
 
