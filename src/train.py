@@ -1,7 +1,3 @@
-import sys
-sys.path.append('../')			# Add modules to sys.path list
-
-
 from model import KnotClassifier
 from dataset import Knots
 from torchvision import transforms

@@ -4,9 +4,10 @@ from PIL import Image
 
 
 # Constants
-DATA_ROOT = './data'                            # Root directory for datsets
+DATA_RAW = './data/raw'                       		# Root directory for raw data
+DATA_PROCESSED = './data/processed'                 # Root directory for processed data
 DATA_DIR = '10Knots_128'                        # Specific datset
-DATA_PATH = os.path.join(DATA_ROOT, DATA_DIR)
+DATA_PATH = os.path.join(DATA_PROCESSED, DATA_DIR)
 CLASSES = [                                     # List of classes as strings
 	'Alpine Butterfly Knot',
 	'Bowline Knot',
@@ -31,7 +32,7 @@ class Knots(VisionDataset):
 		self.targets = []
 		self.split = split
 
-		super().__init__(DATA_ROOT, transforms=None, transform=transform)
+		super().__init__(DATA_PROCESSED, transforms=None, transform=transform)
 		
 		for idx, class_name in enumerate(CLASSES):
 			class_path = os.path.join(DATA_PATH, self.split, class_name)
