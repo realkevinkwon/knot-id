@@ -4,13 +4,13 @@ venv:
 requirements: venv requirements.txt
 	./venv/bin/pip install -r requirements.txt
 
+process: venv requirements
+	./venv/bin/python3 src/process.py
+	
 train: venv requirements
 	./venv/bin/python3 src/train.py
 
 predict: venv requirements
 	./venv/bin/python3 src/predict.py
 
-process: venv requirements
-	./venv/bin/python3 src/process.py
-	
-.PHONY: requirements train predict process
+.PHONY: requirements process train predict
