@@ -1,5 +1,6 @@
 from model import KnotClassifier
 from dataset import Knots
+from visualize import visualize_plot
 from torchvision import transforms
 from torch.utils.data import DataLoader
 import torch
@@ -34,10 +35,23 @@ def main():
 	loss_fn = nn.CrossEntropyLoss()
 	optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
+	train_losses, test_losses = [], []
+	train_accuracies, test_accuracies = [], []
+	epochs = range(1, num_epochs+1)
+
 	# Train model for 'num_epochs' epochs
-	for epoch in range(1, num_epochs+1):
+	for epoch in epochs:
 		train(model, train_loader, loss_fn, optimizer, epoch)
-		test(model, test_loader, loss_fn, epoch)
+
+		loss, accuracy = test(model, train_loader, loss_fn, epoch)
+		train_losses.append(loss)
+		train_accuracies.append(accuracy)
+
+		loss, accuracy = test(model, test_loader, loss_fn, epoch)
+		test_losses.append(loss)
+		test_accuracies.append(accuracy)
+
+	visualize_plot(train_losses, test_losses, train_accuracies, test_accuracies, epochs)
 
 
 # Function to train the model
@@ -64,6 +78,7 @@ def train(model, train_loader, loss_fn, optimizer, epoch):
 def test(model, test_loader, loss_fn, epoch):
 	model.eval()        # Set model to evaluate
 	test_loss = 0       # Initialize test loss
+	test_accuracy = 0
 	correct = 0         # Initialize number of correct predictions
 	
 	with torch.no_grad():       # Make sure PyTorch does not update the gradients
@@ -75,11 +90,14 @@ def test(model, test_loader, loss_fn, epoch):
 			correct += pred.eq(targets.data.view_as(pred)).sum()    # Add to total correct predictions
 
 		test_loss /= len(test_loader.dataset)       # Calculate average test loss
+		test_accuracy = 100.0 * correct / len(test_loader.dataset)
 		print(                                      # Print average test loss and prediction accuracy
 			f'Test result on epoch {epoch}: '
 			f'Avg loss is {test_loss:.8f}, '
-			f'Accuracy: {(100.0 * correct / len(test_loader.dataset)):.2f}%'
+			f'Accuracy: {test_accuracy:.2f}%'
 		)
+	
+	return test_loss, test_accuracy
 	
 
 if __name__ == '__main__':
