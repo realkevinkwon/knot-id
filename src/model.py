@@ -1,10 +1,8 @@
 import torch.nn as nn
 
 
-# ML model for classifying knots (10 classes)
 class KnotClassifier(nn.Module):
 
-	# Initialize KnotClassifier model
 	def __init__(self):
 		super(KnotClassifier, self).__init__()
 
@@ -29,8 +27,6 @@ class KnotClassifier(nn.Module):
 			nn.Linear(256, 10)              # (64, 10)
 		)
 
-
-	# Forward pass 
 	def forward(self, x):
 		x = self.feature_learning(x)
 		x = self.classification(x)

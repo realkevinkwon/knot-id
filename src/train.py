@@ -9,30 +9,25 @@ import torch.optim as optim
 import pandas as pd
 
 
-# Constants
-batch_size = 1                      # Batch size
-img_size = 128                      # Size of the images in the dataset
-num_epochs = 20                     # Number of iterations for training
-learning_rate = 1e-4                # Learning rate
+batch_size = 1
+img_size = 128
+num_epochs = 20
+learning_rate = 1e-4
 model_dir = './models'				# Location of serialized models
 
 
 def main():
-	# Transforms to be applied to the dataset
 	transform = transforms.Compose([
 		transforms.ToTensor(),
 		transforms.Normalize((0.7019, 0.4425, 0.1954), (0.1720, 0.1403, 0.1065))
 	])
 
-	# Initialize datasets
 	train_data = Knots(split='train', transform=transform)
 	test_data = Knots(split='test', transform=transform)
 
-	# Create data loaders for training and testing
 	train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
 	test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
 
-	# Instantiate model, loss function, and optimizer
 	model = KnotClassifier()
 	loss_fn = nn.CrossEntropyLoss()
 	optimizer = optim.Adam(model.parameters(), lr=learning_rate)
@@ -41,7 +36,6 @@ def main():
 	train_accuracies, test_accuracies = [], []
 	epochs = range(1, num_epochs+1)
 
-	# Train model for 'num_epochs' epochs
 	for epoch in epochs:
 		train(model, train_loader, loss_fn, optimizer, epoch)
 
@@ -70,11 +64,9 @@ def main():
 	torch.save(model.state_dict(), f'{model_dir}/{filename}.pt')
 
 
-# Function to train the model
 def train(model, train_loader, loss_fn, optimizer, epoch):
-	model.train()       # Set model to train
+	model.train()
 
-	# Iterate through train dataset, 'batch_size' images at a time
 	for batch_idx, (images, targets) in enumerate(train_loader):
 		optimizer.zero_grad()               # Zero the gradients
 		output = model(images)              # Predict class
@@ -90,15 +82,13 @@ def train(model, train_loader, loss_fn, optimizer, epoch):
 			)
 
 
-# Function to test the model
 def test(model, test_loader, loss_fn, epoch):
-	model.eval()        # Set model to evaluate
-	test_loss = 0       # Initialize test loss
+	model.eval()
+	test_loss = 0
 	test_accuracy = 0
-	correct = 0         # Initialize number of correct predictions
+	correct = 0
 	
 	with torch.no_grad():       # Make sure PyTorch does not update the gradients
-		# Iterate through test dataset
 		for images, targets in test_loader:
 			output = model(images)                                  # Predict class
 			test_loss += loss_fn(output, targets).item()            # Compute loss

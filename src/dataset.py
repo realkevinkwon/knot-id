@@ -3,12 +3,11 @@ from torchvision.datasets.vision import VisionDataset
 from PIL import Image
 
 
-# Constants
 DATA_RAW = './data/raw'                       		# Root directory for raw data
 DATA_PROCESSED = './data/processed'                 # Root directory for processed data
-DATA_DIR = '10Knots_128'                        # Specific datset
+DATA_DIR = '10Knots_128'                       		# Name of specific datset
 DATA_PATH = os.path.join(DATA_PROCESSED, DATA_DIR)
-CLASSES = [                                     # List of classes as strings
+CLASSES = [
 	'Alpine Butterfly Knot',
 	'Bowline Knot',
 	'Clove Hitch',
@@ -22,10 +21,8 @@ CLASSES = [                                     # List of classes as strings
 ]
 
 
-# Dataset used for knot classification
 class Knots(VisionDataset):
 
-	# Initialize the Knots dataset
 	def __init__(self, split, transform=None):
 		self.transform = transform
 		self.filepaths = []
@@ -41,13 +38,9 @@ class Knots(VisionDataset):
 					self.filepaths.append(os.path.join(class_path, file))
 					self.targets.append(idx)
 
-
-	# Return the number of images in the dataset
 	def __len__(self):
 		return len(self.filepaths)
 	
-
-	# Return image and target (label) of the 'idx'th image
 	def __getitem__(self, idx):
 		img = Image.open(self.filepaths[idx])
 		target = self.targets[idx]
