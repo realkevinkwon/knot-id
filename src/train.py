@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import pandas as pd
 
 
 # Constants
@@ -55,8 +56,18 @@ def main():
 		test_accuracies.append(accuracy)
 
 	visualize_plot(train_losses, test_losses, train_accuracies, test_accuracies, epochs)
-	model_path = f'{model_dir}/knot-id_{img_size}-{batch_size}-{num_epochs}-{learning_rate}.pt'
-	torch.save(model.state_dict(), model_path)
+	data = {
+		'epochs': epochs,
+		'train_losses': train_losses,
+		'test_losses': test_losses,
+		'train_accuracies': train_accuracies,
+		'test_accuracies': test_accuracies
+	}
+	df = pd.DataFrame(data)
+	filename = f'knot-id_{img_size}-{batch_size}-{num_epochs}-{learning_rate}'
+	df.to_csv(f'./reports/tables/{filename}.csv')
+
+	torch.save(model.state_dict(), f'{model_dir}/{filename}.pt')
 
 
 # Function to train the model
