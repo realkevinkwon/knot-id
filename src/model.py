@@ -1,10 +1,10 @@
 import torch.nn as nn
 
 
-class KnotClassifier(nn.Module):
+class KnotID(nn.Module):
 
 	def __init__(self):
-		super(KnotClassifier, self).__init__()
+		super(KnotID, self).__init__()
 
 		# Layers for learning features
 		# input shape (64, 3, 128, 128)

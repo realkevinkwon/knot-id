@@ -1,4 +1,4 @@
-from model import KnotClassifier
+from model import KnotID
 from dataset import Knots
 from visualize import visualize_plot
 from torchvision import transforms
@@ -19,7 +19,7 @@ model_dir = './models'				# Location of serialized models
 def main():
 	train_loader, test_loader = prepare_data()
 
-	model = KnotClassifier()
+	model = KnotID()
 	loss_fn = nn.CrossEntropyLoss()
 	optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
