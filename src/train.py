@@ -11,9 +11,9 @@ from torch.utils.data import DataLoader
 batch_size = 1
 img_size = 128
 num_epochs = 5
-learning_rate = 1e-5
+learning_rate = 1e-4
 model_dir = './models'				# Location of serialized models
-model_id = 3
+model_id = 4
 
 
 def main():
