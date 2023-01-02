@@ -57,7 +57,7 @@ class KnotID(nn.Module):
 			file.write(f"learning_rate: {data['learning_rate']}\n")
 			file.write(f"num_epochs: {data['num_epochs']}\n\n")
 			file.write(f'training time: {train_time:}\n\n')
-			file.write(f'str(self)\n\n')
+			file.write(f'{str(self)}\n\n')
 			file.write(model_summary)
 
 		torch.save(self.state_dict(), f'./models/serialized/knot-id_{model_id:04}.pt')
