@@ -24,13 +24,22 @@ class KnotID(nn.Module):
 			nn.MaxPool2d(2),				# (1, 40, 16, 16)
 			nn.Conv2d(40, 80, 3, 1, 1),		# (1, 80, 16, 16)
 			nn.ReLU(),
-			nn.MaxPool2d(2)					# (1, 80, 8, 8)
+			nn.MaxPool2d(2),				# (1, 80, 8, 8)
+			nn.Conv2d(80, 160, 3, 1, 1),	# (1, 160, 8, 8)
+			nn.ReLU(),
+			nn.MaxPool2d(2),				# (1, 160, 4, 4)
+			nn.Conv2d(160, 320, 3, 1, 1),	# (1, 320, 4, 4)
+			nn.ReLU(),
+			nn.MaxPool2d(2),				# (1, 320, 2, 2)
+			nn.Conv2d(320, 640, 3, 1, 1),	# (1, 640, 2, 2)
+			nn.ReLU(),
+			nn.MaxPool2d(2)					# (1, 640, 1, 1)
 		)
 
 		# Layers for classifying images
 		self.classification = nn.Sequential(
 			nn.Flatten(1),                  # (1, 10240)
-			nn.Linear(5120, 10)         	# (1, 2048)
+			nn.Linear(640, 10)         	# (1, 2048)
 		)
 
 	def forward(self, x):
