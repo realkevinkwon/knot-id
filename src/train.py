@@ -1,12 +1,12 @@
-from model import KnotID
-from dataset import Knots
-from visualize import visualize_plot
-from torchvision import transforms
-from torch.utils.data import DataLoader
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import pandas as pd
+from model import KnotID
+from dataset import Knots
+from torchvision import transforms
+from torch.utils.data import DataLoader
 
 
 batch_size = 1
@@ -40,7 +40,13 @@ def main():
 		test_losses.append(loss)
 		test_accuracies.append(accuracy)
 
-	visualize_plot(train_losses, test_losses, train_accuracies, test_accuracies, epochs)
+	model_id = 1
+	saved_models = os.listdir('./models')
+	for model_name in saved_models:
+		if model_name != f'knot-id_{model_id:04}.pt':
+			break
+		model_id += 1	
+
 	data = {
 		'epochs': epochs,
 		'train_losses': train_losses,
@@ -48,9 +54,6 @@ def main():
 		'train_accuracies': train_accuracies,
 		'test_accuracies': test_accuracies
 	}
-	df = pd.DataFrame(data)
-	filename = f'knot-id_{img_size}-{batch_size}-{num_epochs}-{learning_rate}'
-	df.to_csv(f'./reports/tables/{filename}.csv')
 
 	torch.save(model.state_dict(), f'{model_dir}/{filename}.pt')
 

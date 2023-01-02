@@ -1,10 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-FIGURES = './reports/figures'
-
-
-def visualize_plot(train_losses, test_losses, train_accuracies, test_accuracies, epochs):
+def save_plot(model_id, train_losses, test_losses, train_accuracies, test_accuracies, epochs):
 	fig, (ax1, ax2) = plt.subplots(2,1)
 	fig.suptitle('Loss and Classification Accuracy', x=0.13, y=0.95, ha='left')
 	
@@ -23,4 +20,4 @@ def visualize_plot(train_losses, test_losses, train_accuracies, test_accuracies,
 	ax2.set_ylabel('Classification accuracy (%)')
 	ax2.set_xlabel('Epochs')
 
-	plt.show()
+	plt.savefig(f'./reports/figures/knot-id_{model_id}.png')

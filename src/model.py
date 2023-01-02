@@ -1,5 +1,9 @@
+import torch
 import torch.nn as nn
+import pandas as pd
+from visualize import save_plot 
 
+MODEL_ID = '0002'
 
 class KnotID(nn.Module):
 
@@ -31,3 +35,18 @@ class KnotID(nn.Module):
 		x = self.feature_learning(x)
 		x = self.classification(x)
 		return x
+
+	def save(self, model_id, data):
+		df = pd.DataFrame(data)
+		df.to_csv(f'./reports/tables/knot-id_{model_id}.csv')
+
+		save_plot(
+			model_id,
+			data['train_losses'],
+			data['test_losses'],
+			data['train_accuracies'],
+			data['test_accuracies'],
+			data['epochs']
+		)
+
+		torch.save(self.state_dict(), f'./models/knot-id_{model_id}.pt')
