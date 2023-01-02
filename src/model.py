@@ -53,8 +53,9 @@ class KnotID(nn.Module):
 
 		with open(f'./models/summaries/knot-id_{model_id:04}.txt', 'w') as file:
 			file.write(f'training time: {train_time:}')
+			file.write('\n\n')
 			file.write(str(self))
-			file.write('\n')
+			file.write('\n\n')
 			file.write(model_summary)
 
 		torch.save(self.state_dict(), f'./models/serialized/knot-id_{model_id:04}.pt')
