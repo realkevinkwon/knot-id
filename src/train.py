@@ -10,8 +10,8 @@ from torch.utils.data import DataLoader
 
 batch_size = 1
 img_size = 128
-num_epochs = 20
-learning_rate = 1e-4
+num_epochs = 5
+learning_rate = 1e-5
 model_dir = './models'				# Location of serialized models
 model_id = 3
 
@@ -43,6 +43,10 @@ def main():
 	train_time = time.strftime('%H:%M:%S', time.gmtime(time.time() - train_start))
 
 	data = {
+		'batch_size': batch_size,
+		'img_size': img_size,
+		'num_epochs': num_epochs,
+		'learning_rate': learning_rate,
 		'epochs': epochs,
 		'train_losses': train_losses,
 		'test_losses': test_losses,

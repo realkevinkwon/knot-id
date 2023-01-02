@@ -52,10 +52,12 @@ class KnotID(nn.Module):
 		model_summary = str(summary(self, input_size=(1,3,128,128), verbose=0))
 
 		with open(f'./models/summaries/knot-id_{model_id:04}.txt', 'w') as file:
-			file.write(f'training time: {train_time:}')
-			file.write('\n\n')
-			file.write(str(self))
-			file.write('\n\n')
+			file.write(f"img_size: {data['img_size']}\n")
+			file.write(f"batch_size: {data['batch_size']}\n")
+			file.write(f"learning_rate: {data['learning_rate']}\n")
+			file.write(f"num_epochs: {data['num_epochs']}\n\n")
+			file.write(f'training time: {train_time:}\n\n')
+			file.write(f'str(self)\n\n')
 			file.write(model_summary)
 
 		torch.save(self.state_dict(), f'./models/serialized/knot-id_{model_id:04}.pt')
