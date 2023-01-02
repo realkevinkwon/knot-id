@@ -3,7 +3,6 @@ import torch.nn as nn
 import pandas as pd
 from visualize import save_plot 
 
-MODEL_ID = '0002'
 
 class KnotID(nn.Module):
 
