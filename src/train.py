@@ -13,7 +13,7 @@ img_size = 128
 num_epochs = 5
 learning_rate = 1e-4
 model_dir = './models'				# Location of serialized models
-model_id = 4
+model_id = 3
 
 
 def main():

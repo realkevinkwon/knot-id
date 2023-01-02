@@ -27,11 +27,7 @@ class KnotID(nn.Module):
 		# Layers for classifying images
 		self.classification = nn.Sequential(
 			nn.Flatten(1),                  # (1, 10240)
-			nn.Linear(10240, 2048),         # (1, 2048)
-			nn.ReLU(),
-			nn.Linear(2048, 256),           # (1, 256)
-			nn.ReLU(),
-			nn.Linear(256, 10)              # (1, 10)
+			nn.Linear(10240, 10)         # (1, 2048)
 		)
 
 	def forward(self, x):
