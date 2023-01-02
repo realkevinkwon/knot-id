@@ -51,8 +51,8 @@ class KnotID(nn.Module):
 
 		model_summary = str(summary(self, input_size=(1,3,128,128), verbose=0))
 
-		with open('./models/summaries/knot-id_{model_id}.txt', 'w') as file:
-			file.write(self)
+		with open(f'./models/summaries/knot-id_{model_id}.txt', 'w') as file:
+			file.write(str(self))
 			file.write(model_summary)
 
 		torch.save(self.state_dict(), f'./models/knot-id_{model_id}.pt')
