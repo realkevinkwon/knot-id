@@ -1,0 +1,47 @@
+img_size: 128
+batch_size: 1
+learning_rate: 0.0001
+num_epochs: 10
+
+training time: 00:01:12
+
+KnotID(
+  (feature_learning): Sequential(
+    (0): Conv2d(3, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv2d(10, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): ReLU()
+    (5): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (classification): Sequential(
+    (0): Flatten(start_dim=1, end_dim=-1)
+    (1): Linear(in_features=20480, out_features=10, bias=True)
+  )
+)
+
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+KnotID                                   [1, 10]                   --
+├─Sequential: 1-1                        [1, 20, 32, 32]           --
+│    └─Conv2d: 2-1                       [1, 10, 128, 128]         280
+│    └─ReLU: 2-2                         [1, 10, 128, 128]         --
+│    └─MaxPool2d: 2-3                    [1, 10, 64, 64]           --
+│    └─Conv2d: 2-4                       [1, 20, 64, 64]           1,820
+│    └─ReLU: 2-5                         [1, 20, 64, 64]           --
+│    └─MaxPool2d: 2-6                    [1, 20, 32, 32]           --
+├─Sequential: 1-2                        [1, 10]                   --
+│    └─Flatten: 2-7                      [1, 20480]                --
+│    └─Linear: 2-8                       [1, 10]                   204,810
+==========================================================================================
+Total params: 206,910
+Trainable params: 206,910
+Non-trainable params: 0
+Total mult-adds (M): 12.25
+==========================================================================================
+Input size (MB): 0.20
+Forward/backward pass size (MB): 1.97
+Params size (MB): 0.83
+Estimated Total Size (MB): 2.99
+==========================================================================================
