@@ -19,12 +19,15 @@ class KnotID(nn.Module):
 			nn.Conv2d(10, 20, 3, 1, 1),     # (1, 20, 64, 64)
 			nn.ReLU(),
 			nn.MaxPool2d(2),                # (1, 20, 32, 32)
+			nn.Conv2d(20, 40, 3, 1, 1),		# (1, 40, 32, 32)
+			nn.ReLU(),
+			nn.MaxPool2d(2)					# (1, 40, 16, 16)
 		)
 
 		# Layers for classifying images
 		self.classification = nn.Sequential(
-			nn.Flatten(1),                  # (1, 20480)
-			nn.Linear(20480, 2048),         # (1, 2048)
+			nn.Flatten(1),                  # (1, 10240)
+			nn.Linear(10240, 2048),         # (1, 2048)
 			nn.ReLU(),
 			nn.Linear(2048, 256),           # (1, 256)
 			nn.ReLU(),
