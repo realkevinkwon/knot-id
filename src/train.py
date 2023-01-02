@@ -17,16 +17,7 @@ model_dir = './models'				# Location of serialized models
 
 
 def main():
-	transform = transforms.Compose([
-		transforms.ToTensor(),
-		transforms.Normalize((0.7019, 0.4425, 0.1954), (0.1720, 0.1403, 0.1065))
-	])
-
-	train_data = Knots(split='train', transform=transform)
-	test_data = Knots(split='test', transform=transform)
-
-	train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
-	test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
+	train_loader, test_loader = prepare_data()
 
 	model = KnotClassifier()
 	loss_fn = nn.CrossEntropyLoss()
@@ -63,6 +54,20 @@ def main():
 
 	torch.save(model.state_dict(), f'{model_dir}/{filename}.pt')
 
+
+def prepare_data():
+	transform = transforms.Compose([
+		transforms.ToTensor(),
+		transforms.Normalize((0.7019, 0.4425, 0.1954), (0.1720, 0.1403, 0.1065))
+	])
+
+	train_data = Knots(split='train', transform=transform)
+	test_data = Knots(split='test', transform=transform)
+
+	train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
+	test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
+
+	return train_loader, test_loader
 
 def train(model, train_loader, loss_fn, optimizer, epoch):
 	model.train()
