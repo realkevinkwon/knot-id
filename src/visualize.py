@@ -20,4 +20,4 @@ def save_plot(model_id, train_losses, test_losses, train_accuracies, test_accura
 	ax2.set_ylabel('Classification accuracy (%)')
 	ax2.set_xlabel('Epochs')
 
-	plt.savefig(f'./reports/figures/knot-id_{model_id}.png')
+	plt.savefig(f'./models/figures/knot-id_{model_id}.png')

@@ -55,7 +55,7 @@ def main():
 		'test_accuracies': test_accuracies
 	}
 
-	torch.save(model.state_dict(), f'{model_dir}/{filename}.pt')
+	model.save(model_id, data)
 
 
 def prepare_data():
