@@ -1,8 +1,7 @@
-import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import pandas as pd
+import time
 from model import KnotID
 from dataset import Knots
 from torchvision import transforms
@@ -14,6 +13,7 @@ img_size = 128
 num_epochs = 20
 learning_rate = 1e-4
 model_dir = './models'				# Location of serialized models
+model_id = 3
 
 
 def main():
@@ -27,6 +27,7 @@ def main():
 	train_accuracies, test_accuracies = [], []
 	epochs = range(1, num_epochs+1)
 
+	train_start = time.time()
 	for epoch in epochs:
 		train(model, train_loader, loss_fn, optimizer, epoch)
 
@@ -39,13 +40,7 @@ def main():
 		loss, accuracy = test(model, test_loader, loss_fn, epoch)
 		test_losses.append(loss)
 		test_accuracies.append(accuracy)
-
-	model_id = 1
-	saved_models = os.listdir('./models')
-	for model_name in saved_models:
-		if model_name != f'knot-id_{model_id:04}.pt':
-			break
-		model_id += 1	
+	train_time = time.strftime('%H:%M:%S', time.gmtime(time.time() - train_start))
 
 	data = {
 		'epochs': epochs,
@@ -54,8 +49,7 @@ def main():
 		'train_accuracies': train_accuracies,
 		'test_accuracies': test_accuracies
 	}
-
-	model.save(model_id, data)
+	model.save(model_id, data, train_time)
 
 
 def prepare_data():

@@ -36,9 +36,9 @@ class KnotID(nn.Module):
 		x = self.classification(x)
 		return x
 
-	def save(self, model_id, data):
+	def save(self, model_id, data, train_time):
 		df = pd.DataFrame(data)
-		df.to_csv(f'./models/tables/knot-id_{model_id}.csv')
+		df.to_csv(f'./models/tables/knot-id_{model_id:04}.csv')
 
 		save_plot(
 			model_id,
@@ -51,8 +51,10 @@ class KnotID(nn.Module):
 
 		model_summary = str(summary(self, input_size=(1,3,128,128), verbose=0))
 
-		with open(f'./models/summaries/knot-id_{model_id}.txt', 'w') as file:
+		with open(f'./models/summaries/knot-id_{model_id:04}.txt', 'w') as file:
+			file.write(f'training time: {train_time:}')
 			file.write(str(self))
+			file.write('\n')
 			file.write(model_summary)
 
-		torch.save(self.state_dict(), f'./models/knot-id_{model_id}.pt')
+		torch.save(self.state_dict(), f'./models/knot-id_{model_id:04}.pt')
