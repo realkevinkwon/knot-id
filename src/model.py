@@ -57,4 +57,4 @@ class KnotID(nn.Module):
 			file.write('\n')
 			file.write(model_summary)
 
-		torch.save(self.state_dict(), f'./models/knot-id_{model_id:04}.pt')
+		torch.save(self.state_dict(), f'./models/serialized/knot-id_{model_id:04}.pt')
