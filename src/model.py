@@ -33,7 +33,9 @@ class KnotID(nn.Module):
 		# Layers for classifying images
 		self.classification = nn.Sequential(
 			nn.Flatten(1),                  # (1, 2560)
-			nn.Linear(2560, 256),        	# (1, 256)
+			nn.Linear(2560, 768),        	# (1, 768)
+			nn.ReLU(),
+			nn.Linear(768, 256),        	# (1, 256)
 			nn.ReLU(),
 			nn.Linear(256, 64),        		# (1, 64)
 			nn.ReLU(),
