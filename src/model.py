@@ -15,23 +15,23 @@ class KnotID(nn.Module):
 		self.feature_learning = nn.Sequential(
 			nn.Conv2d(3, 10, 3, 1, 1),      # (1, 10, 128, 128)
 			nn.ReLU(),
-			nn.Dropout(p=0.1),
+			nn.Dropout(p=0.2),
 			nn.MaxPool2d(2),                # (1, 10, 64, 64)
 			nn.Conv2d(10, 20, 3, 1, 1),     # (1, 20, 64, 64)
 			nn.ReLU(),
-			nn.Dropout(p=0.1),
+			nn.Dropout(p=0.2),
 			nn.MaxPool2d(2),				# (1, 20, 32, 32)
 			nn.Conv2d(20, 40, 3, 1, 1),     # (1, 40, 32, 32)
 			nn.ReLU(),
-			nn.Dropout(p=0.1),
+			nn.Dropout(p=0.2),
 			nn.MaxPool2d(2),				# (1, 40, 16, 16)
 			nn.Conv2d(40, 80, 3, 1, 1),     # (1, 80, 16, 16)
 			nn.ReLU(),
-			nn.Dropout(p=0.1),
+			nn.Dropout(p=0.2),
 			nn.MaxPool2d(2),				# (1, 80, 8, 8)
 			nn.Conv2d(80, 160, 3, 1, 1),    # (1, 160, 8, 8)
 			nn.ReLU(),
-			nn.Dropout(p=0.1),
+			nn.Dropout(p=0.2),
 			nn.MaxPool2d(2),				# (1, 160, 4, 4)
 		)
 
