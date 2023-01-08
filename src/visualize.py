@@ -15,7 +15,7 @@ def save_plot(model_id, train_losses, test_losses, train_accuracies, test_accura
 		mode='expand'
 	)
 
-	ax2.plot(epochs, train_accuracies, 'o-', label='train')
+	ax2.plot(epochs, train_accuracies, '.-', label='train')
 	ax2.plot(epochs, test_accuracies, '.-', label='test')
 	ax2.set_ylabel('Classification accuracy (%)')
 	ax2.set_xlabel('Epochs')
