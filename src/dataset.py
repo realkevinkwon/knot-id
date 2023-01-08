@@ -4,8 +4,8 @@ from PIL import Image
 
 
 DATA_ROOT_RAW = './data/raw'                       		# Root directory for raw data
-DATA_ROOT_PROCESSED = './data/processed'                 # Root directory for processed data
-DATA_DIR = '10Knots_128'                       		# Name of specific dataset
+DATA_ROOT_PROCESSED = './data/processed'                # Root directory for processed data
+DATA_DIR = '10Knots_128'                      			# Name of specific dataset
 DATA_PATH = os.path.join(DATA_ROOT_PROCESSED, DATA_DIR)
 CLASSES = [
 	'Alpine Butterfly Knot',
