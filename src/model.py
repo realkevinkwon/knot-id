@@ -13,7 +13,7 @@ class KnotID(nn.Module):
 		# Layers for learning features
 		# input shape (1, 3, 128, 128)
 		self.feature_learning = nn.Sequential(
-			nn.Dropout(p=0.5),
+			nn.Dropout(p=0.1),
 			nn.Conv2d(3, 10, 3, 1, 1),      # (1, 10, 128, 128)
 			nn.ReLU(),
 			nn.MaxPool2d(2),                # (1, 10, 64, 64)
