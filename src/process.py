@@ -1,7 +1,7 @@
 import os
 import math
 import random
-from dataset import CLASSES, DATA_RAW, DATA_PROCESSED
+from dataset import CLASSES, DATA_DIR_RAW, DATA_DIR_PROCESSED
 from torchvision.datasets.vision import VisionDataset
 from torchvision.utils import save_image
 from torchvision.transforms import transforms
@@ -31,9 +31,9 @@ class ProcessKnots(VisionDataset):
         self.filenames = []
         self.targets = []
 
-        super().__init__(DATA_RAW, transforms=None, transform=transform)
+        super().__init__(DATA_DIR_RAW, transforms=None, transform=transform)
 
-        path = os.path.join(DATA_RAW, '10Knots', class_name, lighting, looseness)
+        path = os.path.join(DATA_DIR_RAW, '10Knots', class_name, lighting, looseness)
         for file in os.listdir(path):
             if file != '.DS_Store':
                 self.filepaths.append(os.path.join(path, file))
@@ -58,7 +58,7 @@ class ProcessKnots(VisionDataset):
 
 def process_images(img_size):
     img_dir = f'10Knots_{img_size}'
-    dir_list = os.listdir(DATA_PROCESSED)
+    dir_list = os.listdir(DATA_DIR_PROCESSED)
 
     if img_dir in dir_list:
         print(f'{img_dir} already exists')
@@ -70,9 +70,9 @@ def process_images(img_size):
         transforms.ToTensor()
     ])
 
-    train_path = os.path.join(DATA_PROCESSED, img_dir, 'train')
-    test_path = os.path.join(DATA_PROCESSED, img_dir, 'test')
-    val_path = os.path.join(DATA_PROCESSED, img_dir, 'val')
+    train_path = os.path.join(DATA_DIR_PROCESSED, img_dir, 'train')
+    test_path = os.path.join(DATA_DIR_PROCESSED, img_dir, 'test')
+    val_path = os.path.join(DATA_DIR_PROCESSED, img_dir, 'val')
     os.makedirs(train_path, 0o755)
     os.makedirs(test_path, 0o755)
     os.makedirs(val_path, 0o755)
@@ -106,7 +106,7 @@ def process_images(img_size):
                 for curr_split, curr_indices in zip(['train','test','val'],[train_indices,test_indices,val_indices]):
                     for idx in curr_indices:
                         img, _ = img_data.__getitem__(idx)
-                        img_path = os.path.join(DATA_PROCESSED, img_dir, curr_split, class_name, img_data.get_filename(idx))
+                        img_path = os.path.join(DATA_DIR_PROCESSED, img_dir, curr_split, class_name, img_data.get_filename(idx))
                         save_image(img, img_path)
         
         print('Done')

@@ -3,10 +3,10 @@ from torchvision.datasets.vision import VisionDataset
 from PIL import Image
 
 
-DATA_RAW = './data/raw'                       		# Root directory for raw data
-DATA_PROCESSED = './data/processed'                 # Root directory for processed data
-DATA_DIR = '10Knots_128'                       		# Name of specific datset
-DATA_PATH = os.path.join(DATA_PROCESSED, DATA_DIR)
+DATA_DIR_RAW = './data/raw'                       		# Root directory for raw data
+DATA_DIR_PROCESSED = './data/processed'                 # Root directory for processed data
+DATA_ROOT = '10Knots_128'                       		# Name of specific datset
+DATA_PATH = os.path.join(DATA_DIR_PROCESSED, DATA_ROOT)
 CLASSES = [
 	'Alpine Butterfly Knot',
 	'Bowline Knot',
@@ -29,7 +29,7 @@ class Knots(VisionDataset):
 		self.targets = []
 		self.split = split
 
-		super().__init__(DATA_PROCESSED, transforms=None, transform=transform)
+		super().__init__(DATA_DIR_PROCESSED, transforms=None, transform=transform)
 		
 		for idx, class_name in enumerate(CLASSES):
 			class_path = os.path.join(DATA_PATH, self.split, class_name)
